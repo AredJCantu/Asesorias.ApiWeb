@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Asesorias.Maui/Asesorias.Maui.csproj" />
+  <Project Path="AsesoriasAPI/AsesoriasAPI.csproj" />
+  <Project Path="AsesoriasCore/AsesoriasCore.csproj" />
+</Solution>
