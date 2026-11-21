@@ -1,15 +1,19 @@
-namespace AsesoriasAPI
+using AsesoriasAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+var connectionString = builder.Configuration.GetConnectionString("conexion");
+builder.Services.AddDbContext<AsesoriasContext>(
+           optionsBuilder => optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            var app = builder.Build();
-
-            app.MapGet("/", () => "Hello World!");
-
-            app.Run();
-        }
-    }
+    var context = scope.ServiceProvider.GetRequiredService<AsesoriasContext>();
+    context.Database.EnsureCreated();
 }
+
+
+app.Run();
